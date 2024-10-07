@@ -26,10 +26,10 @@ export function Header({ title }: NavbarProps) {
           <SheetMenu />
 
           <h1 className="hidden px-4 text-[20px] font-bold uppercase leading-[20px] text-primary dark:text-muted-foreground lg:block">
-            {title}
+            Madhava Electric
           </h1>
           <h1 className="block px-4 text-[20px] font-bold uppercase leading-[20px] text-primary dark:text-muted-foreground lg:hidden">
-            Madhav A&ES
+            Madhava Electric
           </h1>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-5">

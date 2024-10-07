@@ -38,6 +38,7 @@ import { CurrentVsPreviousCostAnalysis } from './_components/dashboard/current-p
 import { TargetGraph } from './_components/dashboard/target-graph';
 import { format } from 'date-fns';
 import { OverallPaymentStatus } from './_components/dashboard/payment-status';
+import { ScrapBatteriesDashboard } from './_components/dashboard/scrap-batteries-dashboard';
 
 export default function Home() {
   const [date, setDate] = React.useState<DateRange>({
@@ -1028,7 +1029,7 @@ export default function Home() {
   return (
     <ContentLayout title="Dashboard" tags={[]}>
       <Tabs defaultValue="overall" className="w-full">
-        <TabsList className="mb-10 grid h-9 w-full grid-cols-2 items-center bg-gray-200 shadow">
+        <TabsList className="mb-10 grid h-9 w-full grid-cols-2 items-center bg-gray-200 shadow dark:bg-gray-800">
           <TabsTrigger
             className="data-[state=active]:bg-primary data-[state=active]:text-white"
             value="overall"
@@ -1439,6 +1440,9 @@ export default function Home() {
               </>
             )}
         </TabsContent>{' '}
+        <TabsContent value="old">
+          <ScrapBatteriesDashboard />
+        </TabsContent>
       </Tabs>
     </ContentLayout>
   );

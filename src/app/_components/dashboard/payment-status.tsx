@@ -30,15 +30,15 @@ const chartConfig = {
     color: 'hsl(var(--chart-2))',
   },
   unpaid: {
-    label: '',
+    label: 'Unpaid',
     color: 'hsl(var(--destructive))',
   },
   partial: {
-    label: 'Firefox',
+    label: 'Patial',
     color: 'hsl(var(--primary))',
   },
   notUpdated: {
-    label: 'Not Updated',
+    label: 'N/A',
     color: 'hsl(var(--chart-4))',
   },
 } satisfies ChartConfig;
