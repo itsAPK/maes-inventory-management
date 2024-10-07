@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosError, InternalAxiosRequestConfig } from 'ax
 import { redirect } from 'next/navigation';
 import token from '@/lib/token';
 
-export const BASEURL = 'http://127.0.0.1:8000/api';
+export const BASEURL = process.env.NEXT_PUBLIC_API_URL;
 
 const api = axios.create({
   baseURL: BASEURL,
