@@ -36,7 +36,9 @@ export const PaymentStatus = ({ data, mode = 'sales' }: PaymentStatusProps) => {
 
       for (const p of data.products) {
         const r = await api
-          .patch(`/${mode}/${data.reference}/product/${p._id}`, { payment_status: status })
+          .patch(`/${mode}?reference_id=${data.reference}&product_id=${p._id}`, {
+            payment_status: status,
+          })
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
@@ -62,6 +64,7 @@ export const PaymentStatus = ({ data, mode = 'sales' }: PaymentStatusProps) => {
         icon: <AlertTriangle className="h-4 w-4" />,
       });
       router.push(`${pathname}?${searchParams.toString()}`);
+      router.refresh();
     },
   });
   return (

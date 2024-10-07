@@ -37,7 +37,9 @@ export const UpdateRemainingAmount = ({ data, mode = 'sales' }: UpdateRemainingA
 
       for (const p of data.products) {
         const r = await api
-          .patch(`/${mode}/${data.reference}/product/${p._id}`, { remaining_amount: amount })
+          .patch(`/${mode}?reference_id=${data.reference}&product_id=${p._id}`, {
+            remaining_amount: Number(amount),
+          })
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
@@ -59,10 +61,11 @@ export const UpdateRemainingAmount = ({ data, mode = 'sales' }: UpdateRemainingA
       });
     },
     onSuccess: (data, variables, context) => {
-      toast.success('Status Updated', {
+      toast.success('Remaining Payment Updated', {
         icon: <AlertTriangle className="h-4 w-4" />,
       });
       router.push(`${pathname}?${searchParams.toString()}`);
+      router.refresh();
     },
   });
   return (

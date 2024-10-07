@@ -459,7 +459,12 @@ export default function Home() {
                       '$date',
                       {
                         $dateFromString: {
-                          dateString: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+                          dateString: new Date(
+                            new Date().getFullYear(),
+                            new Date().getMonth(),
+                            0,
+                            1,
+                          )
                             .toISOString()
                             .split('T')[0],
                           format: '%Y-%m-%d',
@@ -468,34 +473,33 @@ export default function Home() {
                     ],
                   },
                   {
-                    soldItems: { $sum: '$total_amount' },
+                    $lte: [
+                      '$date',
+                      {
+                        $dateFromString: {
+                          dateString: new Date(
+                            new Date().getFullYear(),
+                            new Date().getMonth() + 1,
+                            0,
+                          )
+                            .toISOString()
+                            .split('T')[0],
+                          format: '%Y-%m-%d',
+                        },
+                      },
+                    ],
                   },
                 ],
               },
             },
           },
-        ],
-        scrap: [
-          {
-            $lookup: {
-              from: 'Product',
-              localField: 'product.id',
-              foreignField: '_id',
-              as: 'product_details',
-            },
-          },
-          {
-            $unwind: '$product_details',
-          },
-          {
-            $match: { 'product_details.name': 'Scrap Battery' },
-          },
           {
             $group: {
               _id: null,
-              total_sales: { $sum: 1 },
-              total_amount_sold: { $sum: '$total_amount' },
-              total_quantity_sold: { $sum: '$actual_quantity' },
+
+              soldItems: {
+                $sum: '$billed_quantity',
+              },
             },
           },
         ],

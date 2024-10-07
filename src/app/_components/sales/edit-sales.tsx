@@ -257,7 +257,7 @@ export const EditSales = ({ data }: EditPurchaseProps) => {
 
       for (const p of patchPayload) {
         const r = await api
-          .patch(`/sales/${p.reference}/product/${p.product_id[0]}`, p)
+          .patch(`/sales?product_id=${p.product_id[0]}&reference_id=${p.reference}`, p)
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
@@ -542,7 +542,7 @@ export const EditSales = ({ data }: EditPurchaseProps) => {
                                           prev.filter((p) => p._id.$oid !== v._id.$oid),
                                         );
                                         setValue((prev) =>
-                                          prev.filter((v) => Number(v.value) !== v._id.$oid),
+                                          prev.filter((i) => Number(i.value) !== v._id.$oid),
                                         );
                                       }}
                                     >

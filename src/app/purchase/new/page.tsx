@@ -170,7 +170,7 @@ export default function NewPurchases() {
       const response = [];
       for (const p of payload) {
         const r = await api
-          .post(`/purchase`, p)
+          .post(`/purchase/`, p)
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
@@ -196,7 +196,7 @@ export default function NewPurchases() {
       toast.success('Purchases Created', {
         icon: <AlertTriangle className="h-4 w-4" />,
       });
-      router.push('/purchase');
+      router.push('/purchase/group');
       router.refresh();
     },
   });
@@ -437,7 +437,7 @@ export default function NewPurchases() {
                                           prev.filter((p) => p._id.$oid !== v._id.$oid),
                                         );
                                         setValue((prev) =>
-                                          prev.filter((v) => Number(v.value) !== v._id.$oid),
+                                          prev.filter((i) => Number(i.value) !== v._id.$oid),
                                         );
                                       }}
                                     >

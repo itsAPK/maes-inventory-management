@@ -170,7 +170,7 @@ export default function NewSales() {
       const response = [];
       for (const p of payload) {
         const r = await api
-          .post(`/sales`, p)
+          .post(`/sales/`, p)
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
@@ -196,7 +196,7 @@ export default function NewSales() {
       toast.success('Sales Created', {
         icon: <AlertTriangle className="h-4 w-4" />,
       });
-      router.push('/sales');
+      router.push('/sales/group');
       router.refresh();
     },
   });
@@ -343,6 +343,7 @@ export default function NewSales() {
                       {value.length > 0 && (
                         <TableBody>
                           {product.map((v) => {
+                            console.log(v);
                             return (
                               <TableRow key={v._id.$oid} className="">
                                 <>
@@ -437,7 +438,7 @@ export default function NewSales() {
                                           prev.filter((p) => p._id.$oid !== v._id.$oid),
                                         );
                                         setValue((prev) =>
-                                          prev.filter((v) => Number(v.value) !== v._id.$oid),
+                                          prev.filter((i) => Number(i.value) !== v._id.$oid),
                                         );
                                       }}
                                     >
@@ -761,14 +762,14 @@ export default function NewSales() {
                 <div className="rounded border p-3">
                   <div className="font-medium text-muted-foreground">Additional Information</div>
 
-                  <div className="grid gap-6 pt-4 md:grid-cols-3">
+                  <div className="grid gap-6 pt-4 md:grid-cols-4">
                     <FormField
                       control={form.control}
                       name="sales_status"
                       render={({ field }) => (
                         <FormItem>
                           <div className="mt-2 flex flex-col space-y-3">
-                            <FormLabel>Sales Status</FormLabel>
+                            <FormLabel>Purchases Status</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
@@ -823,6 +824,21 @@ export default function NewSales() {
                         <FormItem>
                           <FormLabel>
                             Shipping Price <span className="text-xs">(Optional)</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="remaining_amount"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            Remaining Amount <span className="text-xs">(Optional)</span>
                           </FormLabel>
                           <FormControl>
                             <Input {...field} />
