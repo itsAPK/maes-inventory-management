@@ -113,11 +113,11 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
       setValue((prev) => [...prev, e]);
 
       setProduct((prev) => {
-        const existingProduct = prev.find((p) => p._id.$oid === selectedProductNum);
+        const existingProduct = prev.find((p) => p._id === selectedProductNum);
 
         if (existingProduct) {
           return prev.map((p) =>
-            p._id.$oid === selectedProductNum
+            p._id === selectedProductNum
               ? {
                   ...p,
 
@@ -291,7 +291,7 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
   });
 
   const [customerId, setCoustmerId] = useState(data.customers._id);
-
+  console.log(product);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -462,7 +462,7 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
                                         onClick={() =>
                                           setProduct((prev) =>
                                             prev.map((p) =>
-                                              p._id.$oid === v._id.$oid
+                                              p._id === v._id
                                                 ? {
                                                     ...p,
                                                     quantity: p.quantity + 1,
@@ -491,7 +491,7 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
                                         onClick={() =>
                                           setProduct((prev) =>
                                             prev.map((p) =>
-                                              p._id.$oid === v._id.$oid
+                                              p._id === v._id
                                                 ? {
                                                     ...p,
                                                     quantity:
@@ -535,12 +535,8 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
                                       size="icon"
                                       className="h-6 w-6 rounded-[1px]"
                                       onClick={() => {
-                                        setProduct((prev) =>
-                                          prev.filter((p) => p._id.$oid !== v._id.$oid),
-                                        );
-                                        setValue((prev) =>
-                                          prev.filter((i) => Number(i.value) !== v._id.$oid),
-                                        );
+                                        setProduct((prev) => prev.filter((p) => p._id !== v._id));
+                                        setValue((prev) => prev.filter((i) => i.value !== v._id));
                                       }}
                                     >
                                       <TrashIcon className="h-3 w-3" />
