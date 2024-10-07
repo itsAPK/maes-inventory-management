@@ -239,7 +239,7 @@ export const EditPurchase = ({ data }: EditPurchaseProps) => {
       const response = [];
       for (const p of postPayload) {
         const r = await api
-          .post(`/purchase`, p)
+          .post(`/purchase/`, p)
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);

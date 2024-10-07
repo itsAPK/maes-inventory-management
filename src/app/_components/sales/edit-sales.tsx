@@ -241,7 +241,7 @@ export const EditSales = ({ data }: EditPurchaseProps) => {
       const response = [];
       for (const p of postPayload) {
         const r = await api
-          .post(`/sales`, p)
+          .post(`/sales/`, p)
           .then((res) => {
             if (!res.data.success) {
               throw new Error(res.data.message);
